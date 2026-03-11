@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Intern Reimbursement Calculator</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+</head>
+
+
+<body>
+
+
+<!-- Logo -->
+
+<div class="logo-container">
+<img src="logo.png" class="logo">
+</div>
+
+
+<h2>Intern Reimbursement Calculator</h2>
+
+
+<!-- Upload Excel -->
+
+<input type="file" id="fileInput">
+
+
+<!-- Export Button (Hidden initially) -->
+
+<button id="exportBtn" style="display:none;">
+Export to Excel
+</button>
+
+
+<!-- Reimbursement Per Day -->
+
+<div class="table-header">
+
+<div class="right-info">
+Reimbursement / Day : ₹<span id="perDayAmount"></span>
+</div>
+
+</div>
+
+
+
+<!-- Table -->
+
+<table border="1">
+
+<thead>
+
+<tr>
+
+<th>Intern ID</th>
+<th>Name</th>
+<th>No of Days Present</th>
+<th>Total Amount</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="tableBody">
+
+</tbody>
+
+</table>
+
+
+
+<!-- Summary Box (Hidden initially) -->
+
+<div id="summaryBox" class="summary-box">
+
+<h3>Calculation Details</h3>
+
+<p>No of Saturdays : <span id="satCount"></span></p>
+
+<p>No of Sundays : <span id="sunCount"></span></p>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
