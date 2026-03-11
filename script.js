@@ -9,7 +9,9 @@ const daysInMonth = new Date(year, month + 1, 0).getDate();
 let saturdays = 0;
 let sundays = 0;
 
-/* Count Saturdays and Sundays */
+let exportData = [];
+
+/* Count Saturdays & Sundays */
 
 for (let i = 1; i <= daysInMonth; i++) {
 
@@ -22,6 +24,7 @@ for (let i = 1; i <= daysInMonth; i++) {
     if (day === 0) {
         sundays++;
     }
+
 }
 
 /* Calculate reimbursement per day */
@@ -31,7 +34,7 @@ const perDay = totalAmount / daysInMonth;
 document.getElementById("perDayAmount").innerText = perDay.toFixed(2);
 
 
-/* Excel File Upload */
+/* File Upload */
 
 document.getElementById("fileInput").addEventListener("change", function (e) {
 
@@ -40,6 +43,8 @@ document.getElementById("fileInput").addEventListener("change", function (e) {
     const reader = new FileReader();
 
     reader.onload = function (event) {
+
+        exportData = [];
 
         const data = new Uint8Array(event.target.result);
 
@@ -71,11 +76,12 @@ document.getElementById("fileInput").addEventListener("change", function (e) {
 
         });
 
+
         const table = document.getElementById("tableBody");
 
         table.innerHTML = "";
 
-        /* Create Table Rows */
+        /* Create Table */
 
         for (let id in internCount) {
 
@@ -95,17 +101,57 @@ document.getElementById("fileInput").addEventListener("change", function (e) {
 
             table.appendChild(tr);
 
+            /* Store Export Data */
+
+            exportData.push({
+                InternID: id,
+                Name: internCount[id].name,
+                PresentDays: presentDays,
+                Saturdays: saturdays,
+                Sundays: sundays,
+                TotalAmount: amount
+            });
+
         }
 
-        /* Show Summary Box */
+        /* Show Summary */
 
         document.getElementById("satCount").innerText = saturdays;
         document.getElementById("sunCount").innerText = sundays;
 
         document.getElementById("summaryBox").style.display = "block";
 
+        /* Show Export Button */
+
+        document.getElementById("exportBtn").style.display = "inline-block";
+
     };
 
     reader.readAsArrayBuffer(file);
+
+});
+
+
+/* Export Excel */
+
+document.getElementById("exportBtn").addEventListener("click", function () {
+
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+
+    const workbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Reimbursement");
+
+    /* Get Month Name */
+
+    const now = new Date();
+
+    const monthName = now.toLocaleString('default', { month: 'long' });
+
+    const year = now.getFullYear();
+
+    const fileName = "Reimbursement_" + monthName + "_" + year + ".xlsx";
+
+    XLSX.writeFile(workbook, fileName);
 
 });
