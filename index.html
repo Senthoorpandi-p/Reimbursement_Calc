@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Intern Reimbursement</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+</head>
+
+<body>
+<div class="logo-container">
+    <img src="logo.png" alt="Company Logo" class="logo">
+</div>
+<h2>Intern Reimbursement Calculator</h2>
+
+<input type="file" id="fileInput">
+
+<div class="table-header">
+<div class="right-info">
+Reimbursement / Day : <span id="perDayAmount"></span>
+</div>
+</div>
+
+<table border="1">
+
+<thead>
+
+<tr>
+<th>Intern ID</th>
+<th>Name</th>
+<th>No of Days Present</th>
+<th>Amount</th>
+</tr>
+
+</thead>
+
+<tbody id="tableBody">
+</tbody>
+
+</table>
+
+<script src="script.js"></script>
+<div class="summary-box" id="summaryBox">
+
+<h3>Calculation Details</h3>
+
+<p>Saturdays : <span id="satCount"></span></p>
+<p>Sundays : <span id="sunCount"></span></p>
+
+</div>
+</body>
+
+</html>
